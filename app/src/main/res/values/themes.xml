@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.NameAgePrediction" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -12,5 +12,17 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="TextAppearance.AppCompat.FocusedText">
+        <item name="color">#555E65</item>
+        <item name="android:textSize">14sp</item>
+        <item name="font">@font/rubik_500</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.UnfocusedText">
+        <item name="color">#999999</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/rubik_400</item>
     </style>
 </resources>
