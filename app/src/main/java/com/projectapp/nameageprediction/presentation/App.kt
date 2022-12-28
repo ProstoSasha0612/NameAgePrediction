@@ -1,4 +1,4 @@
-package com.projectapp.nameageprediction
+package com.projectapp.nameageprediction.presentation
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
