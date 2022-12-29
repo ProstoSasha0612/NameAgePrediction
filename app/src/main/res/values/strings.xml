@@ -5,4 +5,5 @@
     <string name="search_view_query_hint">Поиск</string>
     <string name="empty_list_text">Введите имя для предсказания возраста</string>
     <string name="add_to_favorite_text">Добавить в избранное</string>
+    <string name="favorite_text">Избранное</string>
 </resources>
