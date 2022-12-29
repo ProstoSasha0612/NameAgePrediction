@@ -14,13 +14,13 @@ interface NameAgePredictionDao {
     suspend fun saveNameAgePrediction(predictionEntity: NameAgePredictionEntity)
 
     @Query("SELECT * FROM predictions WHERE name =:name")
-    suspend fun getNameAgePrediction(name: String): NameAgePredictionEntity
+    suspend fun getNameAgePrediction(name: String): NameAgePredictionEntity?
 
     @Delete
     suspend fun deleteNameAgePrediction(vararg predictionEntities: NameAgePredictionEntity)
 
     //1 in SQLite equals to true
     @Query("SELECT * FROM predictions WHERE isFavorite = 1")
-    suspend fun getFavoritesList(): List<NameAgePredictionEntity>
+    suspend fun getFavoritesList(): List<NameAgePredictionEntity>?
 
 }

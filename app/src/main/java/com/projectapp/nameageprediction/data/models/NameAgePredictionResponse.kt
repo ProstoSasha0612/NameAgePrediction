@@ -16,3 +16,9 @@ fun NameAgePredictionResponse.mapToEntity(): NameAgePredictionEntity = NameAgePr
     isFavorite = false
 )
 
+fun NameAgePredictionResponse.mapToDomain(): NameAgePrediction = NameAgePrediction(
+    name = this.name,
+    age = this.age,
+    isFavorite = false
+)
+

@@ -13,5 +13,5 @@ interface Repository {
 
     suspend fun deleteNameAgePrediction(prediction: NameAgePrediction)
 
-    suspend fun getFavoritesList(): Resource<List<NameAgePrediction>>
+    suspend fun getFavoritesList(): Resource<List<NameAgePrediction>?>
 }
