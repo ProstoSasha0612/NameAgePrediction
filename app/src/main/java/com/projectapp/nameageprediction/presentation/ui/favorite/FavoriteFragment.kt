@@ -8,11 +8,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.projectapp.nameageprediction.databinding.FragmentDashboardBinding
+import com.projectapp.nameageprediction.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
+    private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = requireNotNull(_binding)
     private val viewModel: FavoriteViewModel by viewModels()
 
@@ -21,7 +21,7 @@ class FavoriteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
