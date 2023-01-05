@@ -7,7 +7,9 @@ interface Repository {
 
     suspend fun loadNameAgePrediction(name: String): Resource<NameAgePrediction>
 
-    suspend fun saveNameAgePredictionToDb(prediction: NameAgePrediction)
+    suspend fun replaceInsertNameAgePredictionToDb(prediction: NameAgePrediction)
+
+    suspend fun ignoreInsertNameAgePredictionToDb(prediction: NameAgePrediction)
 
     suspend fun getFromDbNameAgePrediction(name: String): Resource<NameAgePrediction?>
 

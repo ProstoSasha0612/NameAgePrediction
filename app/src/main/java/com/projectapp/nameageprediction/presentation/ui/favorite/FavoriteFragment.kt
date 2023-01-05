@@ -8,8 +8,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.projectapp.nameageprediction.databinding.FragmentFavoriteBinding
+import com.projectapp.nameageprediction.domain.repository.Repository
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment() {

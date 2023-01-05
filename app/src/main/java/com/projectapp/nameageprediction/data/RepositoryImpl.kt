@@ -1,5 +1,6 @@
 package com.projectapp.nameageprediction.data
 
+import android.util.Log
 import com.projectapp.nameageprediction.data.api.AgifyApi
 import com.projectapp.nameageprediction.data.db.NameAgePredictionDatabase
 import com.projectapp.nameageprediction.data.models.NameAgePredictionEntity
@@ -21,14 +22,21 @@ class RepositoryImpl @Inject constructor(
                 val result = api.getNameAgePrediction(name).mapToDomain()
                 Resource.Success(result)
             } catch (e: Exception) {
-                Resource.Error(e.message)
+                Log.e("MYTAG_ERROR", e.message.toString())
+                Resource.Error(e.localizedMessage)
             }
         }
 
-    override suspend fun saveNameAgePredictionToDb(prediction: NameAgePrediction) =
+    override suspend fun replaceInsertNameAgePredictionToDb(prediction: NameAgePrediction) =
         withContext(Dispatchers.IO) {
             val entity = mapNameAgePredictionToEntity(prediction)
-            database.predictionDao.saveNameAgePrediction(entity)
+            database.predictionDao.replaceInsertNameAgePrediction(entity)
+        }
+
+    override suspend fun ignoreInsertNameAgePredictionToDb(prediction: NameAgePrediction) =
+        withContext(Dispatchers.IO) {
+            val entity = mapNameAgePredictionToEntity(prediction)
+            database.predictionDao.ignoreInsertNameAgePrediction(entity)
         }
 
     override suspend fun getFromDbNameAgePrediction(name: String): Resource<NameAgePrediction?> =
@@ -37,7 +45,8 @@ class RepositoryImpl @Inject constructor(
                 val result = database.predictionDao.getNameAgePrediction(name)?.mapToDomain()
                 Resource.Success(result)
             } catch (e: Exception) {
-                Resource.Error(e.message)
+                Log.e("MYTAG_ERROR", e.message.toString())
+                Resource.Error(e.localizedMessage)
             }
         }
 
@@ -55,7 +64,8 @@ class RepositoryImpl @Inject constructor(
                 }
                 Resource.Success(result)
             } catch (e: Exception) {
-                Resource.Error(e.message)
+                Log.e("MYTAG_ERROR", e.message.toString())
+                Resource.Error(e.localizedMessage)
             }
         }
 

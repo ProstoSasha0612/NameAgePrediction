@@ -1,5 +1,6 @@
 package com.projectapp.nameageprediction.presentation.di
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -35,9 +36,9 @@ object AppModule {
     }
 
     @Provides
-    fun providePredictionsDatabase(context: Context): NameAgePredictionDatabase {
+    fun providePredictionsDatabase(app: Application): NameAgePredictionDatabase {
         return Room.databaseBuilder(
-            context,
+            app,
             NameAgePredictionDatabase::class.java,
             "predictions-database"
         ).build()

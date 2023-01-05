@@ -3,6 +3,7 @@ package com.projectapp.nameageprediction.data.db
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.projectapp.nameageprediction.data.models.NameAgePredictionEntity
@@ -11,7 +12,10 @@ import com.projectapp.nameageprediction.data.models.NameAgePredictionEntity
 interface NameAgePredictionDao {
 
     @Insert(onConflict = REPLACE)
-    suspend fun saveNameAgePrediction(predictionEntity: NameAgePredictionEntity)
+    suspend fun replaceInsertNameAgePrediction(predictionEntity: NameAgePredictionEntity)
+
+    @Insert(onConflict = IGNORE)
+    suspend fun ignoreInsertNameAgePrediction(predictionEntity: NameAgePredictionEntity)
 
     @Query("SELECT * FROM predictions WHERE name =:name")
     suspend fun getNameAgePrediction(name: String): NameAgePredictionEntity?
