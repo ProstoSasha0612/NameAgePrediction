@@ -18,7 +18,7 @@ interface NameAgePredictionDao {
     suspend fun ignoreInsertNameAgePrediction(predictionEntity: NameAgePredictionEntity)
 
     @Query("SELECT * FROM predictions WHERE name =:name")
-    suspend fun getNameAgePrediction(name: String): NameAgePredictionEntity?
+    suspend fun getNameAgePrediction(name: String): List<NameAgePredictionEntity>?
 
     @Delete
     suspend fun deleteNameAgePrediction(vararg predictionEntities: NameAgePredictionEntity)

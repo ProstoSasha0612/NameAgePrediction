@@ -9,6 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
+        tools:viewBindingIgnor="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -38,6 +39,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
+        tools:viewBindingIgnor="true"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -86,7 +88,7 @@
         tools:text="41" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton2"
+        android:id="@+id/add_to_favorite_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -105,14 +107,14 @@
         android:textColor="@color/heavy_text_color"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/share_btn"
         app:layout_constraintHorizontal_weight="5"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/Button.Corner"
         tools:targetApi="p" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button"
+        android:id="@+id/share_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -131,7 +133,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/materialButton2"
+        app:layout_constraintStart_toEndOf="@+id/add_to_favorite_btn"
         app:shapeAppearanceOverlay="@style/Button.Corner" />
 
 

@@ -13,14 +13,18 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    val api: AgifyApi,
-    val database: NameAgePredictionDatabase,
+    private val api: AgifyApi,
+    private val database: NameAgePredictionDatabase,
 ) : Repository {
     override suspend fun loadNameAgePrediction(name: String): Resource<NameAgePrediction> =
         withContext(Dispatchers.IO) {
             try {
                 val result = api.getNameAgePrediction(name).mapToDomain()
-                Resource.Success(result)
+                if (result.age == null) {
+                    Resource.Error("Can't find predcition for this name: $name")
+                } else {
+                    Resource.Success(result)
+                }
             } catch (e: Exception) {
                 Log.e("MYTAG_ERROR", e.message.toString())
                 Resource.Error(e.localizedMessage)
@@ -42,7 +46,7 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getFromDbNameAgePrediction(name: String): Resource<NameAgePrediction?> =
         withContext(Dispatchers.IO) {
             try {
-                val result = database.predictionDao.getNameAgePrediction(name)?.mapToDomain()
+                val result = database.predictionDao.getNameAgePrediction(name)?.get(0)?.mapToDomain()
                 Resource.Success(result)
             } catch (e: Exception) {
                 Log.e("MYTAG_ERROR", e.message.toString())
@@ -72,7 +76,7 @@ class RepositoryImpl @Inject constructor(
     companion object {
         fun mapNameAgePredictionToEntity(nameAgePrediction: NameAgePrediction): NameAgePredictionEntity =
             NameAgePredictionEntity(
-                age = nameAgePrediction.age,
+                age = nameAgePrediction.age ?: -1,
                 name = nameAgePrediction.name,
                 isFavorite = nameAgePrediction.isFavorite
             )
