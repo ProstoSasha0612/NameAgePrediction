@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.projectapp.nameageprediction.data.models.NameAgePredictionEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NameAgePredictionDao {
@@ -25,6 +26,6 @@ interface NameAgePredictionDao {
 
     //1 in SQLite equals to true
     @Query("SELECT * FROM predictions WHERE isFavorite = 1")
-    suspend fun getFavoritesList(): List<NameAgePredictionEntity>?
+    fun getFavoritesList(): Flow<List<NameAgePredictionEntity>?>
 
 }

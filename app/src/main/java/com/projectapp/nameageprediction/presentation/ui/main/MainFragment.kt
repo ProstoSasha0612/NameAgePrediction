@@ -118,7 +118,7 @@ class MainFragment : Fragment() {
 
     private fun observeAgePredictionState() {
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.agePredictionState.collect { state ->
                     when (state) {
                         is AgePredictionState.Empty -> {

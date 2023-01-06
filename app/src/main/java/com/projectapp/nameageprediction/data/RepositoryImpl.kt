@@ -9,6 +9,10 @@ import com.projectapp.nameageprediction.data.models.mapToDomain
 import com.projectapp.nameageprediction.domain.models.NameAgePrediction
 import com.projectapp.nameageprediction.domain.repository.Repository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMap
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -63,16 +67,13 @@ class RepositoryImpl @Inject constructor(
             database.predictionDao.deleteNameAgePrediction(entity)
         }
 
-    override suspend fun getFavoritesList(): Resource<List<NameAgePrediction>?> =
+    override suspend fun getFavoritesList(): Flow<List<NameAgePrediction>?> =
         withContext(Dispatchers.IO) {
-            try {
-                val result = database.predictionDao.getFavoritesList()?.map { element ->
+            database.predictionDao.getFavoritesList().flatMapConcat { list ->
+                val mappedList = list?.map { element ->
                     element.mapToDomain()
                 }
-                Resource.Success(result)
-            } catch (e: Exception) {
-                Log.e("MYTAG_ERROR", e.message.toString())
-                Resource.Error(e.localizedMessage)
+                flowOf(mappedList)
             }
         }
 
