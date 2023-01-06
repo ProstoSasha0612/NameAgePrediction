@@ -31,10 +31,12 @@ class RepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun replaceInsertNameAgePredictionToDb(prediction: NameAgePrediction) =
+    override suspend fun replaceInsertNameAgePredictionToDb(prediction: NameAgePrediction?): Unit =
         withContext(Dispatchers.IO) {
-            val entity = mapNameAgePredictionToEntity(prediction)
-            database.predictionDao.replaceInsertNameAgePrediction(entity)
+            prediction?.let {
+                val entity = mapNameAgePredictionToEntity(prediction)
+                database.predictionDao.replaceInsertNameAgePrediction(entity)
+            }
         }
 
     override suspend fun ignoreInsertNameAgePredictionToDb(prediction: NameAgePrediction) =
@@ -46,7 +48,8 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getFromDbNameAgePrediction(name: String): Resource<NameAgePrediction?> =
         withContext(Dispatchers.IO) {
             try {
-                val result = database.predictionDao.getNameAgePrediction(name)?.get(0)?.mapToDomain()
+                val result =
+                    database.predictionDao.getNameAgePrediction(name)?.get(0)?.mapToDomain()
                 Resource.Success(result)
             } catch (e: Exception) {
                 Log.e("MYTAG_ERROR", e.message.toString())

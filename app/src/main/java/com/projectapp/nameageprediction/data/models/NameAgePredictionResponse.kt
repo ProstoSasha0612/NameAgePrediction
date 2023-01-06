@@ -11,14 +11,8 @@ data class NameAgePredictionResponse(
     @SerialName("name") val name: String,
 )
 
-fun NameAgePredictionResponse.mapToEntity(): NameAgePredictionEntity = NameAgePredictionEntity(
-    name = this.name,
-    age = this.age,
-    isFavorite = false
-)
-
 fun NameAgePredictionResponse.mapToDomain(): NameAgePrediction {
-    Log.d("MYTAG","mapping response from api into domain")
+    Log.d("MYTAG", "mapping response from api into domain")
     return NameAgePrediction(
         name = this.name,
         age = this.age,

@@ -1,16 +1,19 @@
 package com.projectapp.nameageprediction.presentation.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView.OnQueryTextListener
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.projectapp.nameageprediction.R
 import com.projectapp.nameageprediction.databinding.FragmentMainBinding
 import com.projectapp.nameageprediction.domain.repository.Repository
 import com.projectapp.nameageprediction.domain.usecases.LoadNameAgeUseCase
@@ -31,7 +34,7 @@ class MainFragment : Fragment() {
     lateinit var repository: Repository
 
     @Inject
-    lateinit var useCase: LoadNameAgeUseCase
+    lateinit var loadNameAgeUseCase: LoadNameAgeUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,21 +52,32 @@ class MainFragment : Fragment() {
         setOnClickListeners()
     }
 
-    private fun searchPrediction(name: String) {
-        viewModel.searchPrediction(name)
-    }
-
     private fun setOnClickListeners() {
         setOnSearchClickListener()
+        setOnFavoriteBtnClickListener()
+        setOnShareBtnClickListener()
+    }
+
+    private fun setOnFavoriteBtnClickListener() {
+        binding.addToFavoriteBtn.setOnClickListener {
+            val prediction =
+                (viewModel.agePredictionState.value as? AgePredictionState.Success)?.prediction
+            prediction?.let {
+                viewModel.addToFavorite(prediction)
+                Toast.makeText(requireActivity(),
+                    "Предсказание для  ${prediction.name} добавлено в избранное",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setOnShareBtnClickListener() {
+        binding.shareBtn.setOnClickListener {
+            shareAgePrediction()
+        }
     }
 
     private fun setOnSearchClickListener() {
-//        binding.searchview.setOnSearchClickListener {
-//            Log.d("MYTAG","on search clicked")
-//            Log.d("MYTAG","${binding.searchview.query}")
-//            viewModel.searchPrediction(binding.searchview.query.toString())
-//        }
-
         binding.searchview.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(name: String?): Boolean {
                 Log.d("MYTAG", "on search clicked")
@@ -78,6 +92,27 @@ class MainFragment : Fragment() {
                 return false
             }
         })
+    }
+
+    private fun shareAgePrediction() {
+        val prediction =
+            (viewModel.agePredictionState.value as? AgePredictionState.Success)?.prediction
+        prediction?.let {
+            val textToShare = String.format(
+                getString(R.string.share_prediction_text),
+                prediction.name,
+                prediction.age
+            )
+            val subjectText =
+                String.format(getString(R.string.share_prediction_subject_text), prediction.name)
+
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_SUBJECT, subjectText)
+                putExtra(Intent.EXTRA_TEXT, textToShare)
+            }
+            startActivity(intent)
+        }
     }
 
 
@@ -98,7 +133,7 @@ class MainFragment : Fragment() {
                         is AgePredictionState.Success -> {
                             with(binding) {
                                 ageCircleTextview.visibility = View.VISIBLE
-                                ageCircleTextview.text = state.age.toString()
+                                ageCircleTextview.text = state.prediction.age.toString()
                                 addToFavoriteBtn.visibility = View.VISIBLE
                                 shareBtn.visibility = View.VISIBLE
                                 cardWriteNameTextview.visibility = View.GONE
