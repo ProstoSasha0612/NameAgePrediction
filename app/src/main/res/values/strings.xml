@@ -5,6 +5,7 @@
     <string name="search_view_query_hint">Поиск</string>
     <string name="empty_list_text">Введите имя для предсказания возраста</string>
     <string name="add_to_favorite_text">Добавить в избранное</string>
+    <string name="delete_selected_text">Удалить</string>
     <string name="favorite_text">Избранное</string>
     <string name="share_prediction_subject_text">Предсказание для имени %s</string>
     <string name="share_prediction_text">А вы знали, что для имени %s предполагаемый возраст это %d?</string>

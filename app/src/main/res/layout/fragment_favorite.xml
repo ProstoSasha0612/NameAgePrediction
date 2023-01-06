@@ -23,6 +23,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
+        android:layout_weight="1"
         tools:itemCount="10"
         tools:listitem="@layout/recycler_view_item" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/delete_selected_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/salt_green_color"
+        android:fontFamily="@font/abhaya_libre_700"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:lineHeight="18sp"
+        android:paddingVertical="18dp"
+        android:stateListAnimator="@null"
+        android:text="@string/delete_selected_text"
+        android:textAllCaps="false"
+        android:textColor="@color/heavy_text_color"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:shapeAppearanceOverlay="@style/Button.Corner"
+        tools:targetApi="p" />
 </LinearLayout>
