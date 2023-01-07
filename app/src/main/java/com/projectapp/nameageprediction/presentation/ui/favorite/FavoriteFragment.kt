@@ -28,7 +28,6 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = requireNotNull(_binding)
     private val viewModel: FavoriteViewModel by viewModels()
-    private val predictionsAdapter = PredictionsRecyclerViewAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,13 +42,34 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-        viewModel.observeFavoritesList()
+        observeDeleteBtnVisibility()
+        setOnDeleteBtnClickListener()
     }
 
     private fun setUpRecyclerView() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = viewModel.predictionsAdapter
+        }
+    }
+
+    private fun observeDeleteBtnVisibility() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showDeleteButtonState.collect { isShowDeleteBtn ->
+                    if (isShowDeleteBtn) {
+                        binding.deleteSelectedBtn.visibility = View.VISIBLE
+                    } else {
+                        binding.deleteSelectedBtn.visibility = View.GONE
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setOnDeleteBtnClickListener() {
+        binding.deleteSelectedBtn.setOnClickListener {
+            viewModel.deleteSelectedItems()
         }
     }
 

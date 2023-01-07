@@ -9,24 +9,25 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.projectapp.nameageprediction.databinding.RecyclerViewItemBinding
 import com.projectapp.nameageprediction.domain.models.NameAgePrediction
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
-class PredictionsRecyclerViewAdapter :
+class PredictionsRecyclerViewAdapter @Inject constructor() :
     ListAdapter<NameAgePrediction, PredictionsRecyclerViewAdapter.PredictionsViewHolder>(
         itemComparator
     ) {
 
-    var isShowCheckboxes: Boolean = false
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    val isShowCheckboxesState: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PredictionsViewHolder {
         val binding =
             RecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         binding.root.setOnLongClickListener {
-            isShowCheckboxes = !isShowCheckboxes
+            isShowCheckboxesState.value = !isShowCheckboxesState.value
+            notifyDataSetChanged()
             false
         }
         return PredictionsViewHolder(binding)
@@ -42,8 +43,7 @@ class PredictionsRecyclerViewAdapter :
 
         fun bind(prediction: NameAgePrediction) {
             predictionItemLayoutBinding.nameTv.text = prediction.name
-            predictionItemLayoutBinding.isFavoriteCheckbox.isVisible = isShowCheckboxes
-//            predictionItemLayoutBinding.isFavoriteCheckbox.isChecked = prediction.
+            predictionItemLayoutBinding.isFavoriteCheckbox.isVisible = isShowCheckboxesState.value
         }
     }
 
