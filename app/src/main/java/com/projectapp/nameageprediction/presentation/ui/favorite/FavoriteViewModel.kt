@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.projectapp.nameageprediction.domain.models.NameAgePrediction
+import com.projectapp.nameageprediction.domain.usecases.DeleteFromFavoriteUseCase
 import com.projectapp.nameageprediction.domain.usecases.GetFavoritesPredictionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class FavoriteViewModel @Inject constructor(
     private val getFavoritesPredictionsUseCase: GetFavoritesPredictionsUseCase,
     private val _predictionsAdapter: PredictionsRecyclerViewAdapter,
+    private val deleteFromFavoriteUseCase: DeleteFromFavoriteUseCase,
 ) : ViewModel() {
 
     //    private val _showDeleteButtonFlow: MutableStateFlow<Boolean> = predictionsAdapter.isShowCheckboxesState
@@ -30,6 +32,14 @@ class FavoriteViewModel @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     fun deleteSelectedItems() {
+
+        viewModelScope.launch {
+//            deleteFromFavoriteUseCase(_predictionsAdapter.currentList)
+        }
+
+        _predictionsAdapter.currentList.forEach { prediction ->
+        }
+
 
         _predictionsAdapter.isShowCheckboxesState.value = false
         _predictionsAdapter.notifyDataSetChanged()

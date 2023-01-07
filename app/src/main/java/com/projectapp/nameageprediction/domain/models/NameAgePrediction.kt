@@ -4,4 +4,5 @@ data class NameAgePrediction(
     val age: Int?,
     val name: String,
     var isFavorite: Boolean = false,
+    var isChecked: Boolean = false,
 )

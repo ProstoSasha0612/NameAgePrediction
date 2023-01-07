@@ -25,6 +25,7 @@ class PredictionsRecyclerViewAdapter @Inject constructor() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PredictionsViewHolder {
         val binding =
             RecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
         binding.root.setOnLongClickListener {
             isShowCheckboxesState.value = !isShowCheckboxesState.value
             notifyDataSetChanged()
@@ -44,6 +45,13 @@ class PredictionsRecyclerViewAdapter @Inject constructor() :
         fun bind(prediction: NameAgePrediction) {
             predictionItemLayoutBinding.nameTv.text = prediction.name
             predictionItemLayoutBinding.isFavoriteCheckbox.isVisible = isShowCheckboxesState.value
+            predictionItemLayoutBinding.isFavoriteCheckbox.isChecked = prediction.isChecked
+
+            predictionItemLayoutBinding.isFavoriteCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (buttonView.isPressed) {
+                    prediction.isChecked = isChecked
+                }
+            }
         }
     }
 
