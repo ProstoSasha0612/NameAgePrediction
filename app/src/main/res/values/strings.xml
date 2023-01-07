@@ -9,4 +9,11 @@
     <string name="favorite_text">Избранное</string>
     <string name="share_prediction_subject_text">Предсказание для имени %s</string>
     <string name="share_prediction_text">А вы знали, что для имени %s предполагаемый возраст это %d?</string>
+    
+    <!--Dialogue to delete from favorite-->
+    <string name="delete_name_subject_text">Удалить имя</string>
+    <string name="delete_name_decription_text">Вы уверены что хотите удалить выбранное имя из избранных?</string>
+    <string name="delete_answer_yes_text">Да</string>
+    <string name="delete_answer_no_text">Нет</string>
+
 </resources>

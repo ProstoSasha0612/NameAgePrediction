@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.projectapp.nameageprediction.databinding.RecyclerViewItemBinding
 import com.projectapp.nameageprediction.domain.models.NameAgePrediction
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class PredictionsRecyclerViewAdapter @Inject constructor() :

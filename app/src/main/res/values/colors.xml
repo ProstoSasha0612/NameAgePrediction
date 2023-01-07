@@ -16,4 +16,5 @@
     <color name="primary_text_color">#757893</color>
     <color name="heavy_text_color">#484848</color>
     <color name="salt_green_color">#CDE7BE</color>
+    <color name="delete_dialogue_text_black_color">#2D3047</color>
 </resources>

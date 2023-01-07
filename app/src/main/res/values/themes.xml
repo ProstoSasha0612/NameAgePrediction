@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.NameAgePrediction" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">@color/delete_dialogue_text_black_color</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -39,4 +39,5 @@
     <style name="Button.Corner" parent="">
         <item name="cornerSize">8dp</item>
     </style>
+
 </resources>

@@ -31,13 +31,11 @@ object AppModule {
             ignoreUnknownKeys = true
         }
 
-        /**/
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(logging)
             .build()
-        /**/
 
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

@@ -25,7 +25,7 @@ class FavoriteViewModel @Inject constructor(
         get() = _predictionsAdapter
 
     @SuppressLint("NotifyDataSetChanged")
-    fun deleteSelectedItems() {
+    fun deleteSelectedItemsFromFavorite() {
         viewModelScope.launch {
             _predictionsAdapter.currentList.forEach { prediction ->
                 if (prediction.isChecked) {
