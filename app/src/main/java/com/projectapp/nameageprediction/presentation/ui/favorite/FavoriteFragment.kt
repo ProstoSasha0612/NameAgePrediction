@@ -2,25 +2,17 @@ package com.projectapp.nameageprediction.presentation.ui.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.projectapp.nameageprediction.databinding.FragmentFavoriteBinding
-import com.projectapp.nameageprediction.domain.repository.Repository
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment() {
@@ -44,6 +36,7 @@ class FavoriteFragment : Fragment() {
         setUpRecyclerView()
         observeDeleteBtnVisibility()
         setOnDeleteBtnClickListener()
+        viewModel.observeFavoritesList()
     }
 
     private fun setUpRecyclerView() {
@@ -75,6 +68,8 @@ class FavoriteFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.recyclerView.adapter = null
         _binding = null
+
     }
 }
